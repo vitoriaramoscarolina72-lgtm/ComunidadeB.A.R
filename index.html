@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade B.A.R</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 3.5s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 4.5s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(15, 12, 41, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s, text-shadow 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: 10px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            text-shadow: none;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            letter-spacing: 6px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .hero .tagline {
+            font-size: 1rem;
+            color: #888;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 15px 50px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0f0c29;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            margin: 30px auto;
+            border-radius: 2px;
+        }
+
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 4px;
+            color: #ffd700;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+            letter-spacing: 2px;
+        }
+
+        .card p {
+            color: #999;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            max-width: 700px;
+            text-align: center;
+            color: #aaa;
+            line-height: 2;
+            font-size: 1.05rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50px;
+            color: #ffd700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            border: 1px solid rgba(255, 215, 0, 0.05);
+            border-radius: 50%;
+            animation: pulse-ring 4s ease-out infinite;
+        }
+
+        .pulse-ring:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            animation-delay: 1s;
+        }
+
+        .pulse-ring:nth-child(3) {
+            width: 600px;
+            height: 600px;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            .hero .subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 3px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        .rules-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 15px;
+            padding: 25px 30px;
+            transition: all 0.3s;
+        }
+
+        .rule-card:hover {
+            border-color: rgba(255, 215, 0, 0.4);
+            transform: translateX(5px);
+            box-shadow: 0 5px 30px rgba(255, 215, 0, 0.1);
+        }
+
+        .rule-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .rule-icon {
+            font-size: 1.5rem;
+        }
+
+        .rule-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 1px;
+        }
+
+        .rule-description {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .rule-penalty {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 50, 50, 0.15);
+            border: 1px solid rgba(255, 50, 50, 0.4);
+            border-radius: 20px;
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .team-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .team-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .team-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .staff-title {
+            color: #ff8c00;
+        }
+
+        .mod-title {
+            color: #4da6ff;
+        }
+
+        .team-list {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .staff-member {
+            border: 2px solid #ff8c00;
+            color: #ff8c00;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+        }
+
+        .staff-member:hover {
+            background: rgba(255, 140, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .mod-member {
+            border: 2px solid #4da6ff;
+            color: #4da6ff;
+            box-shadow: 0 0 15px rgba(77, 166, 255, 0.2);
+        }
+
+        .mod-member:hover {
+            background: rgba(77, 166, 255, 0.15);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <nav>
+        <div class="logo">B.A.R</div>
+        <div class="nav-links">
+            <a href="#home">Início</a>
+            <a href="#rules">Regras</a>
+            <a href="#community">Comunidade</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-visual">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+        </div>
+        <h1>COMUNIDADE B.A.R</h1>
+        <p class="subtitle">Gaming · Amizades · Diversão</p>
+        <div class="divider"></div>
+        <p class="tagline">Somos uma comunidade gamer focada em Gmod, Minecraft e muitos outros jogos. Aqui você encontra companhia, diversão e novos amigos para jogar junto!</p>
+        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3713554241" class="btn-primary" target="_blank">Download Addons Gmod</a>
+    </section>
+
+    
+
+    <section class="section" id="rules">
+        <h2 class="section-title">Regras do Servidor Gmod</h2>
+        <div class="rules-container">
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">💀</span>
+                    <span class="rule-name">PropKill / PropPush</span>
+                </div>
+                <p class="rule-description">Matar ou empurrar outros jogadores com props é proibido.</p>
+                <span class="rule-penalty">Penalidade: Kick + Ban Temporário (1 dia)</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">💥</span>
+                    <span class="rule-name">Crash</span>
+                </div>
+                <p class="rule-description">Qualquer ação que cause queda ou lentidão no servidor é proibida.</p>
+                <span class="rule-penalty">Penalidade: Ban Permanente Imediato</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🐛</span>
+                    <span class="rule-name">Exploit / Bug Abuse</span>
+                </div>
+                <p class="rule-description">Usar falhas ou bugs do jogo para obter vantagem é proibido.</p>
+                <span class="rule-penalty">Penalidade: Ban Permanente</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🚫</span>
+                    <span class="rule-name">Racismo</span>
+                </div>
+                <p class="rule-description">Comentários racistas ou qualquer forma de discriminação racial são estritamente proibidos.</p>
+                <span class="rule-penalty">Penalidade: Ban Permanente Imediato</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">⚠️</span>
+                    <span class="rule-name">Nazismo</span>
+                </div>
+                <p class="rule-description">Simbolismo nazista, apologia ao nazismo ou qualquer conteúdo relacionado é proibido.</p>
+                <span class="rule-penalty">Penalidade: Ban Permanente Imediato</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">⚖️</span>
+                    <span class="rule-name">Crime / Preconceito</span>
+                </div>
+                <p class="rule-description">Qualquer tipo de crime virtual ou comportamento preconceituoso (sexismo, lgbtfobia, etc) é proibido.</p>
+                <span class="rule-penalty">Penalidade: Ban Permanente Imediato</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🎮</span>
+                    <span class="rule-name">Diversão e Respeito</span>
+                </div>
+                <p class="rule-description">Divirta-se! Mas sempre respeite os outros jogadores. Trate todos como gostaria de ser tratado.</p>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🧱</span>
+                    <span class="rule-name">Spam de Props</span>
+                </div>
+                <p class="rule-description">Spammar props no servidor é proibido. Use props com responsabilidade.</p>
+                <span class="rule-penalty">Penalidade: Kick + Ban Temporário</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🔞</span>
+                    <span class="rule-name">Conteúdo NSFW</span>
+                </div>
+                <p class="rule-description">Qualquer tipo de conteúdo NSFW (conteúdo sexual, explícito ou impróprio) é estritamente proibido.</p>
+                <span class="rule-penalty">Penalidade: Ban Permanente Imediato</span>
+            </div>
+            <div class="rule-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🛡️</span>
+                    <span class="rule-name">Abuso de Poder</span>
+                </div>
+                <p class="rule-description">Se qualquer SuperAdmin, Moderador ou Admin abusar de poder, abra um Ticket no Discord para denunciá-lo.</p>
+                <span class="rule-penalty">Penalidade: Investigação e Punição</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="staff">
+        <div class="team-section">
+            <h3 class="team-title staff-title">📕 SuperAdmins</h3>
+            <div class="team-list">
+                <div class="team-member staff-member">🦊 Baeky</div>
+                <div class="team-member staff-member">🦊 Thunder370</div>
+                <div class="team-member staff-member">🦊 Arthur</div>
+            </div>
+        </div>
+        <div class="team-section">
+            <h3 class="team-title mod-title">💎 Moderadores</h3>
+            <div class="team-list">
+                <div class="team-member mod-member">💎 Sniff</div>
+                <div class="team-member mod-member">💎 EelektraDeep</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="community">
+        <h2 class="section-title">Junte-se a Nós</h2>
+        <div class="about-content">
+            <p class="about-text">
+                A Comunidade B.A.R é o lugar perfeito pra quem ama jogar! Seja no Gmod, Minecraft ou qualquer outro jogo, aqui você encontra pessoas com o mesmo interesse pra se divertir, trocar ideia e fazer novas amizades. Sem toxicity, só boa vibes e gaming. Vem fazer parte!
+            </p>
+            <div class="social-links">
+                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3713554241" class="social-link" target="_blank">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.82.18-.76 1.23-5.21 1.23-5.21s-.31-.63-.31-1.56c0-1.46.85-2.55 1.9-2.55.9 0 1.33.67 1.33 1.48 0 .9-.58 2.26-.87 3.51-.25 1.05.52 1.9 1.54 1.9 1.85 0 3.09-2.37 3.09-5.17 0-2.14-1.44-3.63-3.49-3.63-2.38 0-3.77 1.78-3.77 3.62 0 .72.28 1.48.62 1.9.07.09.08.17.06.26-.06.29-.21.92-.24 1.05-.04.17-.14.21-.32.13-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.6-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.21-5.18 6.21-1.01 0-1.96-.53-2.29-1.15l-.62 2.33c-.22.86-.83 1.94-1.24 2.59.93.29 1.92.44 2.93.44 6.63 0 12-5.37 12-12S18.63 0 12 0z"/></svg>
+                    Download Addons Gmod
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Comunidade B.A.R. Gaming · Amizades · Diversão</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
